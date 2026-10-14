@@ -1,0 +1,15 @@
+{
+  "name": "mythology-clicker",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Noć mitova: a mythology clicker game across six mythologies, in Croatian and English.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^6.3.5"
+  }
+}

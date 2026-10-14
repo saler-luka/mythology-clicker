@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="hr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="description" content="Clicker igra kroz šest mitologija: raspiri svetu vatru, pridobij bogove, dočekaj zoru i dobij posljednju bitku.">
+  <meta name="theme-color" content="#0e1322">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>Noć mitova</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ruslan+Display&family=Noto+Sans+Glagolitic&family=Noto+Sans+Runic&family=Alegreya+Sans:wght@400;500;700&family=Alegreya+Sans+SC:wght@500;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Egyptian+Hieroglyphs&display=swap&text=%F0%93%8F%BA%F0%93%8F%BB%F0%93%8F%BC%F0%93%8F%BD%F0%93%8F%BE%F0%93%8F%BF%F0%93%90%80%F0%93%90%81%F0%93%90%82">
+</head>
+<body>
+<div class="band" aria-hidden="true"></div>
+<header>
+  <div class="htext">
+    <h1 id="h1"></h1>
+    <p class="tag" id="tag"></p>
+  </div>
+  <div class="hctl">
+    <div class="lang" role="group" data-t-aria="lang">
+      <button data-lang="hr" aria-pressed="true">HR</button>
+      <button data-lang="en" aria-pressed="false">EN</button>
+    </div>
+    <button class="theme-btn" id="themeBtn"></button>
+  </div>
+</header>
+
+<main class="game">
+  <section class="panel left" data-t-aria="fire">
+    <div class="counter">
+      <span class="label" id="nightLabel"></span>
+      <span class="dukh" id="dukh">0</span>
+      <span class="rate" id="rate"></span>
+      <div class="pills">
+        <span class="pill flowerp" id="flowerPill" hidden></span>
+        <span class="pill perunp" id="perunPill" hidden></span>
+        <span class="pill fernp" id="buff" hidden></span>
+      </div>
+    </div>
+    <div class="raid" id="raid" role="region" hidden>
+      <div class="raid-head"><b id="raidHead"></b><span id="raidSub"></span></div>
+      <div>
+        <div class="oak" aria-hidden="true"><div class="oak-fill" id="oakFill"></div><div class="serpent" id="serpent"></div></div>
+        <div class="oak-ends"><span class="label" id="endA"></span><span class="label" id="endB"></span></div>
+      </div>
+      <div class="raid-btns">
+        <button class="strike" id="strike"><span id="strikeLabel"></span><small id="strikeSub"></small></button>
+        <button class="strike perun" id="perunBtn" hidden><span id="finLabel"></span><small id="finSub"></small></button>
+      </div>
+    </div>
+    <div class="fire-wrap" id="fireWrap">
+      <button id="fire"><canvas id="cv"></canvas></button>
+    </div>
+    <p class="hint" id="hint"></p>
+    <div class="stats">
+      <div><span class="label" data-t="perClick"></span><b id="perClick">1</b></div>
+      <div><span class="label" data-t="tonight"></span><b id="total">0</b></div>
+      <div><span class="label" data-t="clicks"></span><b id="clicks">0</b></div>
+    </div>
+    <div class="chron">
+      <span class="label" data-t="chron"></span>
+      <ol id="log"></ol>
+    </div>
+  </section>
+
+  <div class="right">
+    <section class="panel" aria-labelledby="spiritsTitle">
+      <div class="sec-head">
+        <h2 id="spiritsTitle"></h2>
+        <div class="qty" role="group" data-t-aria="qty">
+          <button id="q1" aria-pressed="true">×1</button>
+          <button id="q10" aria-pressed="false">×10</button>
+        </div>
+      </div>
+      <div class="list" id="gens"></div>
+    </section>
+
+    <section class="panel battle" id="battle" aria-labelledby="battleTitle" hidden>
+      <div class="sec-head"><h2 id="battleTitle"></h2><span class="label" data-t="battleSub"></span></div>
+      <p class="copy" id="battleCopy"></p>
+      <div class="bar"><div id="battleFill"></div></div>
+      <div class="brow">
+        <span id="battleTxt"></span>
+        <button class="strike" id="battleBtn"></button>
+      </div>
+      <button class="strike perun fight-btn" id="fightBtn"></button>
+      <p class="small" id="fightHint"></p>
+    </section>
+
+    <section class="panel" aria-labelledby="ritesTitle">
+      <div class="sec-head"><h2 id="ritesTitle" data-t="rites"></h2><span class="label" data-t="ritesSub"></span></div>
+      <div class="ups" id="ups"></div>
+    </section>
+
+    <section class="panel dawn" id="dawnPanel" aria-labelledby="dawnTitle" hidden>
+      <div class="sec-head"><h2 id="dawnTitle" data-t="dawn"></h2><span class="label" id="nightNo"></span></div>
+      <p class="copy" id="dawnCopy"></p>
+      <div class="trio">
+        <div><span class="label" id="flowersLabel"></span><b id="flowers">0</b></div>
+        <div><span class="label" data-t="permBonus"></span><b id="flowerBonus">+0</b></div>
+        <div><span class="label" data-t="dawnBrings"></span><b id="pending">0</b></div>
+      </div>
+      <button class="dawn-btn" id="dawnBtn"></button>
+      <p class="small" id="dawnHint"></p>
+    </section>
+  </div>
+</main>
+
+<div class="foot">
+  <span data-t="foot"></span>
+  <button class="reset" id="reset"></button>
+</div>
+<!-- Test buttons, shown only in the dev server (see src/game.js) -->
+<div class="foot test" hidden data-t-aria="testing">
+  <span class="label">test</span>
+  <span class="test-btns">
+    <button class="reset" data-cheat="1e6"></button>
+    <button class="reset" data-cheat="1e9"></button>
+    <button class="reset" data-cheat="1.2e11"></button>
+    <button class="reset" id="cheatVeles" data-t="cheatRaid"></button>
+  </span>
+</div>
+<div class="band" aria-hidden="true" style="margin-top:20px"></div>
+<div class="toast" id="toast" role="status" hidden></div>
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" hidden><div class="ov" id="ov"></div></div>
+<div class="fight" id="fight" role="dialog" aria-modal="true" aria-labelledby="fTitle" hidden>
+  <div class="fbox">
+    <div class="fhead"><h2 id="fTitle"></h2><button class="fquit" id="fQuit"></button></div>
+    <div class="fsteps" aria-hidden="true" id="fSteps"><span></span><span></span><span></span></div>
+    <span class="label" id="fPhase"></span>
+    <p class="fhelp" id="fHelp" aria-live="polite"></p>
+    <div class="stage" id="fStage"><canvas id="fcv"></canvas><div class="tokens" id="fTokens"></div><div class="fmsg" id="fMsg" aria-live="assertive"></div></div>
+    <div class="fmeter" id="fClimb"><div id="fClimbFill"></div></div>
+    <div class="fpower" id="fPower" hidden><div class="fzone" id="fZone"></div><div class="fneedle" id="fNeedle"></div></div>
+    <div class="ftimer" id="fTimer" hidden><div id="fTimerFill"></div></div>
+    <div class="frow"><span id="fInfo"></span><button class="strike perun fstrike" id="fStrike"></button></div>
+    <div class="fend" id="fEnd" hidden></div>
+  </div>
+</div>
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>
